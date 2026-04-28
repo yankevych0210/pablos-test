@@ -135,7 +135,7 @@
         if (data.success) {
           showSuccess(data.redirect_url);
         } else {
-          alert(data.message || 'Error. Inténtalo de nuevo.');
+          showError(data.message || 'Error. Inténtalo de nuevo.');
         }
       })
       .catch(function (err) {
@@ -161,6 +161,19 @@
   overlay.addEventListener('click', function (e) {
     if (e.target === overlay) overlay.classList.remove('active');
   });
+
+  // --- модалка помилки ---
+  function showError(msg) {
+    var errOverlay = document.getElementById('errorOverlay');
+    var errMsg = document.getElementById('errorMessage');
+    if (errMsg) errMsg.textContent = msg;
+    if (errOverlay) errOverlay.classList.add('active');
+  }
+
+  var errOverlay = document.getElementById('errorOverlay');
+  var errCloseBtn = document.getElementById('closeError');
+  if (errCloseBtn) errCloseBtn.addEventListener('click', function () { errOverlay.classList.remove('active'); });
+  if (errOverlay) errOverlay.addEventListener('click', function (e) { if (e.target === errOverlay) errOverlay.classList.remove('active'); });
 
   // --- таймер зворотнього відліку ---
   (function () {

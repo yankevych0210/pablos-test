@@ -129,7 +129,7 @@
     fd.append('phone', phone.value.trim());
     fd.append('website', honeypot ? honeypot.value : '');
 
-    fetch('send.php', { method: 'POST', body: fd })
+    fetch('/api/send', { method: 'POST', body: fd })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data.success) {
@@ -140,7 +140,7 @@
       })
       .catch(function (err) {
         // якщо PHP недоступний — для демо показуємо успіх
-        console.warn('send.php unavailable (expected in non-PHP environments):', err.message);
+        console.warn('API unavailable, showing demo success:', err.message);
         showSuccess();
       })
       .finally(function () {
